@@ -5,8 +5,11 @@ class Game
   @correct
   @guesses
   @@DICT_FILE = 'google-10000-english-no-swears.txt'
+  @@HANGMAN = [
+    '---------', '|', '|', '|', '|', '|', '-----', '   |',
+    '   o', '  /', '|', "\\", '  /', " \\"
+  ]
   
-
 
   def initialize
     @word = get_secret_word
@@ -34,15 +37,17 @@ class Game
 
       score(guess)
       display
-      #draw hangman
+      draw_hangman(calc_hang_array)
     end
-    'end'
+  
   end
+
 
 
   private
 
   def intro
+    draw_hangman(@@HANGMAN)
     puts 'Guess the secret word before you hang!'
     puts "You have #{@MAX_GUESSES} guesses."
   end
@@ -56,7 +61,7 @@ class Game
 
 
   def get_letter
-    print "\nEnter a letter [a-z]: "
+    print 'Enter a letter [a-z]: '
     gets.chomp
   end
 
@@ -85,7 +90,37 @@ class Game
         letter :
         '_'
     end
+
     puts reveal.join(' ')
+  end
+
+
+  def calc_hang_array
+    hang = []
+
+    guesses = @guesses.length
+    remaining = @MAX_GUESSES - guesses
+
+    guesses.times { |i| hang[i] = @@HANGMAN[i] }
+    remaining.times { |i| hang[i + guesses] = '' }
+
+    hang
+  end
+
+  
+  def draw_hangman(hang)
+
+    puts <<-HANGMAN
+
+         #{hang[6]}
+         #{hang[5]}#{hang[7]}
+         #{hang[4]}#{hang[8]}
+         #{hang[3]}#{hang[9]}#{hang[10]}#{hang[11]}
+         #{hang[2]}#{hang[12]}#{hang[13]}
+         #{hang[1]}
+         #{hang[0]}
+
+    HANGMAN
   end
 
 
