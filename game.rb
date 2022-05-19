@@ -2,6 +2,7 @@
 class Game
 
   @word
+  @correct
   @guesses
   @@DICT_FILE = 'google-10000-english-no-swears.txt'
   
@@ -9,6 +10,8 @@ class Game
 
   def initialize
     @word = get_secret_word
+    puts "Word: #{@word}"
+    @correct = []
     @guesses = []
     @MAX_GUESSES = 12
   end
@@ -22,13 +25,15 @@ class Game
         return 'save' if save?
       end
 
-      until validate(get_letter)
+      guess = get_letter
+      until validate(guess)
         puts 'Invalid input.'
         guess = get_letter
       end
+
       @guesses << guess
-      #check letter
-      #score
+      score(guess)
+      display
       #draw hangman
       #check end game
       
@@ -47,18 +52,41 @@ class Game
   def get_secret_word
     dictionary = IO.readlines(@@DICT_FILE)
     words = dictionary.select { |word| word.strip!.length.between?(5, 12) }
-    words.sample
+    words.sample.downcase
   end
 
 
   def get_letter
-    puts "\nEnter a letter [a-z]: "
+    print "\nEnter a letter [a-z]: "
     gets.chomp
   end
 
 
   def validate(letter)
-    letter.match?(/[[:alpha:]]/)
+    ('a'..'z').include?(letter.downcase)
+    #letter.match?(/[[:alpha:]]/)
+  end
+
+
+  def score(letter)
+    if @word.include?(letter)
+      @correct << letter
+      puts "\nGood guess."
+    end
+
+    @guesses << letter
+  end
+
+
+  def display
+    reveal = []
+
+    @word.split('').each_with_index do |letter, ind|
+      reveal[ind] = @correct.include?(letter) ?
+        letter :
+        '_'
+    end
+    puts reveal.join(' ')
   end
 
 
@@ -73,7 +101,7 @@ class Game
 
 
   def save?
-    puts 'Save game? y/n'
+    print "\nSave game? y/n"
     ['y', 'Y'].include?(gets.chomp)
   end
 
