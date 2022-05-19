@@ -10,25 +10,12 @@ def intro
 end
 
 
-def display(outcome)
-  case outcome
-  when 'save'
-    puts outcome
-  when 'win'
-    puts outcome
-  else
-    puts outcome
-  end
-end
-
-
 intro
 game = ['y', 'Y'].include?(gets.chomp) ?
   GameManager.new.retrieve_game :
   Game.new
 
-outcome = game.play
-display(outcome)
+game.play
 
 
 

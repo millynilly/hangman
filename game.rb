@@ -13,17 +13,18 @@ class Game
     puts "Word: #{@word}"
     @correct = []
     @guesses = []
-    @MAX_GUESSES = 12
+    @MAX_GUESSES = 14
   end
 
 
   def play
     intro
-    until win? or hanged?
 
-      unless @guesses.length == 0
-        return 'save' if save?
-      end
+    until end_game?
+
+      # unless @guesses.length == 0
+      #   return 'save' if save?
+      # end
 
       guess = get_letter
       until validate(guess)
@@ -31,13 +32,11 @@ class Game
         guess = get_letter
       end
 
-      @guesses << guess
       score(guess)
       display
       #draw hangman
-      #check end game
-      
     end
+    'end'
   end
 
 
@@ -90,13 +89,22 @@ class Game
   end
 
 
+  def end_game?
+    win? || hanged?
+  end
+
+
   def win?
-    false
+    win = @word.split('').all? { |letter| @correct.include?(letter) }
+    puts "\nWin! You guessed the word in #{@guesses.length} guesses\n\n" if win
+    win
   end
 
 
   def hanged?
-    false
+    hanged = @guesses.length == @MAX_GUESSES
+    puts "\nHanged! You are out of guesses.\n\n" if hanged
+    hanged
   end
 
 
