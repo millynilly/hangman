@@ -97,7 +97,6 @@ class Game
 
   def calc_hang_array
     hang = []
-
     guesses = @guesses.length
     remaining = @MAX_GUESSES - guesses
 
@@ -131,7 +130,7 @@ class Game
 
   def win?
     win = @word.split('').all? { |letter| @correct.include?(letter) }
-    puts "\nWin! You guessed the word in #{@guesses.length} guesses\n\n" if win
+    puts "\nWin! You got the word in #{@guesses.length} guesses.\n\n" if win
     win
   end
 
