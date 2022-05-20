@@ -1,0 +1,11 @@
+--- !ruby/object:Game
+word: phrase
+correct:
+- a
+- h
+- s
+guesses:
+- a
+- h
+- s
+MAX_GUESSES: 14

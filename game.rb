@@ -25,9 +25,9 @@ class Game
 
     until end_game?
 
-      # unless @guesses.length == 0
-      #   return 'save' if save?
-      # end
+      unless @guesses.length == 0
+        return 'save' if save?
+      end
 
       guess = get_letter
       until validate(guess)
@@ -49,7 +49,7 @@ class Game
   def intro
     draw_hangman(@@HANGMAN)
     puts 'Guess the secret word before you hang!'
-    puts "You have #{@MAX_GUESSES} guesses."
+    puts "You have #{@MAX_GUESSES} guesses.\n\n"
   end
 
 
@@ -143,7 +143,7 @@ class Game
 
 
   def save?
-    print "\nSave game? y/n"
+    print "\nSave game? y/n: "
     ['y', 'Y'].include?(gets.chomp)
   end
 

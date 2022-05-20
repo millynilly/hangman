@@ -1,0 +1,11 @@
+--- !ruby/object:Game
+word: jason
+correct:
+- s
+- a
+- n
+guesses:
+- s
+- a
+- n
+MAX_GUESSES: 14

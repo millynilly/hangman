@@ -15,7 +15,9 @@ game = ['y', 'Y'].include?(gets.chomp) ?
   GameManager.new.retrieve_game :
   Game.new
 
-game.play
+if game.play == 'save'
+  GameManager.new(game).save
+end
 
 
 
