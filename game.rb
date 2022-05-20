@@ -17,11 +17,11 @@ class Game
     @correct = []
     @guesses = []
     @MAX_GUESSES = 14
+    intro
   end
 
 
   def play
-    intro
 
     until end_game?
 

@@ -1,0 +1,11 @@
+--- !ruby/object:Game
+word: prayer
+correct:
+- r
+- y
+- a
+guesses:
+- r
+- y
+- a
+MAX_GUESSES: 14

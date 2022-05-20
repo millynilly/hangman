@@ -6,13 +6,13 @@ def intro
   puts "\n"
   puts 'Hangman'
   puts '-------'
-  puts 'Load saved game? y/n'
+  print 'Load saved game? y/n: '
 end
 
 
 intro
 game = ['y', 'Y'].include?(gets.chomp) ?
-  GameManager.new.retrieve_game :
+  GameManager.new.load :
   Game.new
 
 if game.play == 'save'

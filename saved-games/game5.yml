@@ -1,0 +1,14 @@
+--- !ruby/object:Game
+word: nails
+correct:
+- a
+- i
+- s
+guesses:
+- a
+- z
+- i
+- x
+- s
+- j
+MAX_GUESSES: 14

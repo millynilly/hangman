@@ -1,0 +1,13 @@
+--- !ruby/object:Game
+word: dance
+correct:
+- d
+- a
+- c
+- e
+guesses:
+- d
+- a
+- c
+- e
+MAX_GUESSES: 14

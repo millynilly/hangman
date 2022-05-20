@@ -18,30 +18,54 @@ class GameManager
   end
 
 
-  def deserialise
-    #
+  def deserialise(filename)
+    @game = YAML.load(File.read(filename))
+    puts @game.class
   end
 
 
   def save
     serialise(@game)
-    File.write(get_next_filename, @serialised)
+
+    id = get_next_id
+    File.write(@@PATH + id + '.yml', @serialised)
+
+    puts "Game saved in game#{id}.yml\n\n"
   end
 
 
-  def get_next_filename
+  def get_next_id
     id = 1
 
     while File.exist?(@@PATH + id.to_s + '.yml')
       id += 1
     end
 
-    @@PATH + id.to_s + '.yml'
+    id.to_s
   end
 
 
   def load
-    #
+    filename = choose_game
+    puts filename
+    deserialise(filename)
+    @game
+  end
+
+
+  def choose_game
+    puts 'Choose a game: '
+    Dir.glob('saved-games/*') do |file|
+      print file[12, 5] + '   '
+    end
+    puts "\n"
+
+    game = gets.chomp
+    until File.exist?('saved-games/' + game + '.yml')
+      print 'Invalid filename. Try again: '
+      game = gets.chomp
+    end
+    'saved-games/' + game + '.yml'
   end
   
 
